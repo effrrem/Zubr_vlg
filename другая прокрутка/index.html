@@ -1,0 +1,166 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ООО «ЗУБР» ремонт коммерческого транспорта</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>ООО «ЗУБР» ремонт коммерческого транспорта</h1>
+        <p>Ремонт грузовых автомобилей – Европа и Азия. Ремонт прицепов и полуприцепов </p>
+    </header>
+
+    <nav>
+        <a href="#services">Услуги</a>
+        <a href="#request">Заявка</a>
+        <a href="contacts.html">Контакты</a>
+    </nav>
+
+    <main>
+        <section id="services">
+            <h2>Наши услуги</h2>
+            <div class="services-slides">
+                <div class="service-slide">
+                    <div class="slide-number">01</div>
+                    <div class="slide-content">
+                        <h3>Официальный сервис MAN</h3>
+                        <p>Профессиональное обслуживание и ремонт грузовиков MAN по официальным стандартам завода-производителя. Полный спектр работ с гарантией качества.</p>
+                        <a href="service-man-official.html">Подробнее →</a>
+                    </div>
+                </div>
+                <div class="service-slide">
+                    <div class="slide-number">02</div>
+                    <div class="slide-content">
+                        <h3>Ремонт грузовой техники Европа и Азия</h3>
+                        <p>Ремонт и обслуживание грузовой техники любых европейских и азиатских производителей. Опыт работы со всеми популярными марками.</p>
+                        <a href="service-repair-eu-asia.html">Подробнее →</a>
+                    </div>
+                </div>
+                <div class="service-slide">
+                    <div class="slide-number">03</div>
+                    <div class="slide-content">
+                        <h3>Компьютерная диагностика MAN, SITRAK</h3>
+                        <p>Современная компьютерная диагностика всех систем управления грузовиков MAN и SITRAK с использованием профессионального оборудования.</p>
+                        <a href="service-diagnostics.html">Подробнее →</a>
+                    </div>
+                </div>
+                <div class="service-slide">
+                    <div class="slide-number">04</div>
+                    <div class="slide-content">
+                        <h3>Ремонт прицепов и полуприцепов</h3>
+                        <p>Качественный ремонт и обслуживание прицепов и полуприцепов всех типов — от бортовых до рефрижераторов.</p>
+                        <a href="service-trailer-repair.html">Подробнее →</a>
+                    </div>
+                </div>
+                <div class="service-slide">
+                    <div class="slide-number">05</div>
+                    <div class="slide-content">
+                        <h3>Ремонт топливной системы</h3>
+                        <p>Профессиональный ремонт топливной аппаратуры и системы впрыска. Диагностика и восстановление форсунок, ТНВД.</p>
+                        <a href="service-fuel-system.html">Подробнее →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="request" class="request-section">
+            <h2>Заявка на обратный звонок</h2>
+            <form id="request-form">
+                <div class="form-group">
+                    <label for="phone">Телефон:</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+                </div>
+                <div class="form-group">
+                    <label for="name">Имя:</label>
+                    <input type="text" id="name" name="name" placeholder="Иван" required>
+                </div>
+                <div class="form-group">
+                    <label for="surname">Фамилия:</label>
+                    <input type="text" id="surname" name="surname" placeholder="Иванов" required>
+                </div>
+                <div class="form-group">
+                    <label for="patronymic">Отчество:</label>
+                    <input type="text" id="patronymic" name="patronymic" placeholder="Иванович">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="example@mail.ru" required>
+                </div>
+                <button type="submit">Отправить заявку</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Сервис ремонта грузовиков MAN. Все права защищены.</p>
+    </footer>
+
+    <script>
+        // Появление услуг при скролле — одна за другой с выездом сбоку
+        (function() {
+            const slides = document.querySelectorAll('.service-slide');
+            if (!slides.length) return;
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.2,
+                rootMargin: '0px 0px -80px 0px'
+            });
+
+            slides.forEach(function(slide, index) {
+                slide.style.transitionDelay = (index * 0.12) + 's';
+                observer.observe(slide);
+            });
+        })();
+
+        // Плавная прокрутка для ссылок якоря
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Обработка формы заявки
+        const requestForm = document.getElementById('request-form');
+        requestForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Собираем данные формы
+            const formData = new FormData(this);
+            let body = '';
+            formData.forEach((value, key) => {
+                if (value) body += `${key}: ${value}\n`;
+            });
+
+            // Открываем почтовый клиент с заполненными данными
+            const subject = 'Заявка на обратный звонок';
+            window.location.href = `mailto:matvey.efremov@internet.ru?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+            // Показываем уведомление
+            const notification = document.createElement('div');
+            notification.className = 'notification success';
+            notification.textContent = 'Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.';
+            document.body.appendChild(notification);
+
+            setTimeout(() => notification.remove(), 3000);
+            this.reset();
+        });
+    </script>
+</body>
+</html>
